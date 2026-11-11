@@ -1,0 +1,30 @@
+# qmake artifacts
+Makefile
+Makefile.*
+*.pro.user
+*.pro.user.*
+.qmake.stash
+.qmake.cache
+.qmake.qmake.conf
+
+# build outputs
+*.o
+*.obj
+*.so
+*.so.*
+*.a
+moc_*.cpp
+moc_*.h
+qrc_*.cpp
+ui_*.h
+dist/
+
+# never ship device dumps or pulled firmware binaries
+*.tgz
+xochitl
+
+# editors / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
