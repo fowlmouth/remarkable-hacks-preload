@@ -42,7 +42,14 @@ RUN case "${TARGETARCH:-amd64}" in \
     && sh /tmp/remarkable-sdk.sh -y -d "${SDK_DIR}" \
     && rm -f /tmp/remarkable-sdk.sh
 
-ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+# The SDK's Qt tools require a full xx_YY.UTF-8 locale (C.UTF-8 is not
+# enough for them and qmake warns); generate en_US.UTF-8.
+RUN apt-get update && apt-get install -y --no-install-recommends locales \
+    && sed -i 's/^# *en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen \
+    && locale-gen \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
 # Source this before building:
 #   . ${SDK_ENV}
